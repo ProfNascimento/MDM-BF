@@ -479,8 +479,8 @@ for(i in 1:length(FTHETA_P12)){
   MATP12[MATP12[,i]==1,i]<-FTHETA_P12[[i]][-1]
 }
 
-colnames(MATP12)<-c("P1_1",	"P1_2",	"P1_3",	"P1_4",	"P1_5",	"P1_6",	"P1_7",	"P1_8",	"P1_9",	"P1_10",	"P1_11",	"P1_12",	"P1_13",	"P1_14",	"P1_15",	"P1_16",	"P1_17",	"P1_18",	"P1_19",	"P1_20",	"P1_21",	"P1_22",	"P1_23","P2_1",	"P2_2",	"P2_3",	"P2_4",	"P2_5",	"P2_6",	"P2_7",	"P2_8",	"P2_9",	"P2_10",	"P2_11",	"P2_12",	"P2_13",	"P2_14",	"P2_15",	"P2_16",	"P2_17",	"P2_18",	"P2_19",	"P2_20",	"P2_21",	"P2_22",	"P2_23")
-rownames(MATP12)<-c("P1_1",	"P1_2",	"P1_3",	"P1_4",	"P1_5",	"P1_6",	"P1_7",	"P1_8",	"P1_9",	"P1_10",	"P1_11",	"P1_12",	"P1_13",	"P1_14",	"P1_15",	"P1_16",	"P1_17",	"P1_18",	"P1_19",	"P1_20",	"P1_21",	"P1_22",	"P1_23","P2_1",	"P2_2",	"P2_3",	"P2_4",	"P2_5",	"P2_6",	"P2_7",	"P2_8",	"P2_9",	"P2_10",	"P2_11",	"P2_12",	"P2_13",	"P2_14",	"P2_15",	"P2_16",	"P2_17",	"P2_18",	"P2_19",	"P2_20",	"P2_21",	"P2_22",	"P2_23")
+colnames(MATP12)<-paste(c(rep("P1",23),rep("P2",23)),rep(1:23,2),sep = "_")
+rownames(MATP12)<-paste(c(rep("P1",23),rep("P2",23)),rep(1:23,2),sep = "_")
 
 # SMOOTH
 STHETA_P12<-lapply(MTSP12,rowMeans)
@@ -491,8 +491,8 @@ for(i in 1:length(STHETA_P12)){
   SMATP12[SMATP12[,i]==1,i]<-STHETA_P12[[i]][-1]
 }
 
-colnames(SMATP12)<-c("P1_1",	"P1_2",	"P1_3",	"P1_4",	"P1_5",	"P1_6",	"P1_7",	"P1_8",	"P1_9",	"P1_10",	"P1_11",	"P1_12",	"P1_13",	"P1_14",	"P1_15",	"P1_16",	"P1_17",	"P1_18",	"P1_19",	"P1_20",	"P1_21",	"P1_22",	"P1_23","P2_1",	"P2_2",	"P2_3",	"P2_4",	"P2_5",	"P2_6",	"P2_7",	"P2_8",	"P2_9",	"P2_10",	"P2_11",	"P2_12",	"P2_13",	"P2_14",	"P2_15",	"P2_16",	"P2_17",	"P2_18",	"P2_19",	"P2_20",	"P2_21",	"P2_22",	"P2_23")
-rownames(SMATP12)<-c("P1_1",	"P1_2",	"P1_3",	"P1_4",	"P1_5",	"P1_6",	"P1_7",	"P1_8",	"P1_9",	"P1_10",	"P1_11",	"P1_12",	"P1_13",	"P1_14",	"P1_15",	"P1_16",	"P1_17",	"P1_18",	"P1_19",	"P1_20",	"P1_21",	"P1_22",	"P1_23","P2_1",	"P2_2",	"P2_3",	"P2_4",	"P2_5",	"P2_6",	"P2_7",	"P2_8",	"P2_9",	"P2_10",	"P2_11",	"P2_12",	"P2_13",	"P2_14",	"P2_15",	"P2_16",	"P2_17",	"P2_18",	"P2_19",	"P2_20",	"P2_21",	"P2_22",	"P2_23")
+colnames(SMATP12)<-paste(c(rep("P1",23),rep("P2",23)),rep(1:23,2),sep = "_")
+rownames(SMATP12)<-paste(c(rep("P1",23),rep("P2",23)),rep(1:23,2),sep = "_")
 
 #--STEP 4-- DYNAMIC ANALYSIS
 # Time-varying Parameter (Filt$mt[[node]][param,])
@@ -504,7 +504,8 @@ plot(mdmfP12$mt[[1]][4,], type="l", xlab="Time", col="blue",ylim=c(-0.3,0.3), yl
      lines(mdmsP12$smt[[1]][4,], lty = "solid", col="green")
      lines((mdmsP12$smt[[1]][4,]-tt[length(tt)]*sqrt(mdmsP12$sCt[[1]][4,4,])), lty = "dashed", col="green")
      lines((mdmsP12$smt[[1]][4,]+tt[length(tt)]*sqrt(mdmsP12$sCt[[1]][4,4,])), lty = "dashed", col="green")
-     legend("top", legend = c("Smooth Post. Mean","Filter Post. Mean","Credible Interval"), lty = c("solid", "solid","dashed"), col = c("green","blue", "blue"), bty = "n")
+     legend("top", legend = c("Smooth Post. Mean","Filter Post. Mean","Credible Interval"), lty = c("solid", "solid","dashed"), 
+            col = c("green","blue", "blue"), bty = "n")
 
 # ----- Define a function for CAUSAL plotting a matrix ----- #
 myImagePlot_b <- function(x, cl=1, ...){
@@ -580,12 +581,12 @@ myImagePlot_b <- function(x, cl=1, ...){
 
 #################################################################################################################
 ############## FILTER VISUALIZATION #####################
-myImagePlot_b(MATP12,cl=0,zlim=c(0,0.088),title="Indivíduos 1 e 2 conjuntamente")  
+myImagePlot_b(MATP12,cl=0,zlim=c(0,0.088),title="Individual functionals & Brain-to-brain association")  
 
 ############## SMOOTH VISUALIZATION #####################
-myImagePlot_b(SMATP12,cl=0,zlim=c(0,max(SMATP12)),title="Indivíduos 1 e 2 conjuntamente")  
+myImagePlot_b(SMATP12,cl=0,zlim=c(0,max(SMATP12)),title="Individual functionals & Brain-to-brain association")  
 
-############## CORRELATION #####################
+############## CORRELATION ##############################
 MCORP12<-cor(P12m)
-myImagePlot_b(MCORP12,cl=0,zlim=c(0,1.0),title="Indivíduos 1 e 2 conjuntamente")    
+myImagePlot_b(MCORP12,cl=0,zlim=c(0,1.0),title="Individual functionals & Brain-to-brain association")    
 
